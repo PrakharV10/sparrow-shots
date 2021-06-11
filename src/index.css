@@ -13,6 +13,6 @@
 
 @layer components {
 	.logo {
-		@apply font-logo text-lg md:text-3xl font-bold;
+		@apply font-logo text-lg md:text-xl font-bold;
 	}
 }

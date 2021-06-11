@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Chats = () => {
+const ChatIcon = () => {
 	return (
 		<svg width="24px" height="24px" viewBox="0 0 20 20">
 			<g fill="none">
@@ -21,3 +21,5 @@ export const Chats = () => {
 		</svg>
 	);
 };
+
+export default ChatIcon;

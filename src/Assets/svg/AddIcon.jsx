@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Add = () => {
+const AddIcon = () => {
 	return (
 		<svg width="20px" height="20px" viewBox="0 0 1024 1024">
 			<path
@@ -14,3 +14,5 @@ export const Add = () => {
 		</svg>
 	);
 };
+
+export default AddIcon;

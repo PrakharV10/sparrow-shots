@@ -1,10 +1,19 @@
 import React from 'react';
-import MobileHeader from '../../Components/MobileHeader/MobileHeader';
+import { MobileHeader, DesktopHeader, LeftSidebar, FooterNav } from '../../Components';
 
 const Feed = () => {
 	return (
 		<div>
-			<MobileHeader />
+			<nav>
+				<MobileHeader />
+				<DesktopHeader />
+			</nav>
+			<main className="md:w-4/5 md:m-auto relative">
+				<LeftSidebar />
+			</main>
+			<footer>
+				<FooterNav />
+			</footer>
 		</div>
 	);
 };
