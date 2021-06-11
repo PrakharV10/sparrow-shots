@@ -2,9 +2,9 @@ import React from 'react';
 
 const HomeIcon = () => {
 	return (
-		<svg width="30px" height="30px" viewBox="0 0 24 24">
+		<svg className="w-7 h-7 lg:w-6 lg:h-6" width="30px" height="30px" viewBox="0 0 24 24">
 			<g
-				class="icon-tabler"
+				className="icon-tabler"
 				fill="none"
 				stroke="currentColor"
 				strokeWidth="1.3"

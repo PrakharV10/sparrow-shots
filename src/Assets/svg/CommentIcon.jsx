@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CommentIcon = () => {
+export const CommentOutline = () => {
 	return (
 		<svg width="24px" height="24px" viewBox="0 0 20 20">
 			<g fill="none">
@@ -13,4 +13,15 @@ const CommentIcon = () => {
 	);
 };
 
-export default CommentIcon;
+export const CommentFilled = () => {
+	return (
+		<svg className="text-pink-500" width="24px" height="24px" viewBox="0 0 20 20">
+			<g fill="none">
+				<path
+					d="M10 2a8 8 0 1 1-3.613 15.14l-.121-.065l-3.645.91a.5.5 0 0 1-.62-.441v-.082l.014-.083l.91-3.644l-.063-.12a7.95 7.95 0 0 1-.83-2.887l-.025-.382L2 10a8 8 0 0 1 8-8zm.5 9h-3l-.09.008a.5.5 0 0 0 0 .984L7.5 12h3l.09-.008a.5.5 0 0 0 0-.984L10.5 11zm2-3h-5l-.09.008a.5.5 0 0 0 0 .984L7.5 9h5l.09-.008a.5.5 0 0 0 0-.984L12.5 8z"
+					fill="currentColor"
+				></path>
+			</g>
+		</svg>
+	);
+};

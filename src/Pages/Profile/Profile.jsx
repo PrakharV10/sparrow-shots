@@ -1,24 +1,22 @@
 import React from 'react';
 import {
-	MobileHeader,
 	DesktopHeader,
-	LeftSidebar,
 	FooterNav,
-	FeedContainer,
-	RightSuggestionBar,
+	LeftSidebar,
+	MobileHeader,
+	ProfileContainer,
 } from '../../Components';
 
-const Feed = () => {
+const Profile = () => {
 	return (
 		<div>
 			<nav className="sticky top-0 bg-blue-50 z-10 ">
 				<MobileHeader />
 				<DesktopHeader />
 			</nav>
-			<main className="lg:w-11/12 lg:m-auto xl:w-4/5 relative">
+			<main className="min-h-full lg:w-11/12 lg:m-auto xl:w-4/5 relative">
 				<LeftSidebar />
-				<FeedContainer />
-				<RightSuggestionBar />
+				<ProfileContainer />
 			</main>
 			<footer>
 				<FooterNav />
@@ -27,4 +25,4 @@ const Feed = () => {
 	);
 };
 
-export default Feed;
+export default Profile;
