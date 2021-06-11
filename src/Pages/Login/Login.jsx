@@ -36,7 +36,7 @@ const Login = () => {
 							</button>
 							<p>
 								New to Sparrow Shots?{' '}
-								<Link to="/signup" className="text-pink-400">
+								<Link to="/signup" className="text-pink-500">
 									Signup now!
 								</Link>
 							</p>

@@ -6,7 +6,7 @@ const MobileHeader = () => {
 		<div className="w-screen h-14 flex justify-between items-center p-5 lg:hidden">
 			<AddIcon />
 			<div className="logo">
-				Shots <span className="text-pink-400">Sparrow</span>
+				Shots <span className="text-pink-500">Sparrow</span>
 			</div>
 			<ChatIcon />
 		</div>

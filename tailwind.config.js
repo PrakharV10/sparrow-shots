@@ -30,6 +30,9 @@ module.exports = {
 				logo: ['Kreon', 'serif'],
 				body: ['Poppins', 'sans-serif'],
 			},
+			maxWidth: {
+				'2lg': '34.5rem',
+			},
 		},
 	},
 	variants: {

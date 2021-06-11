@@ -9,7 +9,7 @@ const FooterNav = () => {
 	};
 
 	return (
-		<div className="absolute bottom-0 w-screen h-16 px-5 lg:hidden">
+		<div className="fixed bottom-0 w-screen h-16 px-5 border-t-2 border-black border-opacity-10 lg:hidden">
 			<ul className="flex justify-between items-center h-16">
 				<li>
 					<NavLink to="/feed" activeStyle={activeStyle}>

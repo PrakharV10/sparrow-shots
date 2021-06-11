@@ -45,7 +45,7 @@ const Signup = () => {
 							</button>
 							<p>
 								Already a User?{' '}
-								<Link to="/" className="text-pink-400">
+								<Link to="/" className="text-pink-500">
 									Login now!
 								</Link>
 							</p>
