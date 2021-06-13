@@ -8,6 +8,7 @@ import { useUserSelector } from '../../features/users/usersSlice';
 const LikeBox = ({ post }) => {
 	const { currentUser } = useUserSelector();
 	const dispatch = useDispatch();
+	console.log(post);
 
 	function reactionButtonClicked(currentUserId, type, post) {
 		if (checkUserLikedOrDisliked(post, currentUserId) === 0) {

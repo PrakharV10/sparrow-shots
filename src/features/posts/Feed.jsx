@@ -13,7 +13,6 @@ import { loadPosts, usePostSelector } from './postsSlice';
 const Feed = () => {
 	const { status, posts } = usePostSelector();
 	const dispatch = useDispatch();
-	console.log(posts);
 
 	useEffect(() => {
 		if (status === 'idle') dispatch(loadPosts());

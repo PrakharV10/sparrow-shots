@@ -1,16 +1,17 @@
 import React from 'react';
 import { AvatarLarge } from '../Avatar/Avatar';
 
-const ProfileHeader = () => {
+const ProfileHeader = ({ profileUser }) => {
 	return (
 		<div className="flex border-b-2 border-gray-400 border-opacity-40 w-full lg:border-b-0 mb-5">
 			<AvatarLarge />
 			<div className="ml-4 border-b-0 border-gray-400 pb-3 border-opacity-40 lg:border-b-2">
-				<div className="font-regular text-lg lg:text-xl">Tanay Pratap</div>
+				<div className="font-regular text-lg lg:text-xl">{profileUser.name}</div>
 				<div className="flex justify-between items-center mb-6 w-full">
 					<p className="text-sm lg:text-base font-light flex-1">
-						Senior Software Engineer @Microsoft | ReactJS + TypeScript expert | Tech +
-						Life + Career tweets here | Teaching @neogcamp | Dev Jobs @roc8HQ
+						{profileUser.description
+							? profileUser.description
+							: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'}
 					</p>
 					<button className="hidden flex-shrink-0 ml-8 w-24 h-10 rounded-full text-pink-500 border-2 border-pink-500 text-sm lg:block">
 						Follow

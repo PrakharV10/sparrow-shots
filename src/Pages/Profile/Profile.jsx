@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router';
 import {
 	DesktopHeader,
 	FooterNav,
@@ -6,8 +8,17 @@ import {
 	MobileHeader,
 	ProfileContainer,
 } from '../../Components';
+import { getProfileFromUserId, useUserSelector } from '../../features/users/usersSlice';
 
 const Profile = () => {
+	const dispatch = useDispatch();
+	const { userId } = useParams();
+	const { profileUser, status } = useUserSelector();
+
+	useEffect(() => {
+		dispatch(getProfileFromUserId({ user_id: userId }));
+	}, [dispatch, userId]);
+
 	return (
 		<div>
 			<nav className="sticky top-0 bg-blue-50 z-10 ">
@@ -16,7 +27,7 @@ const Profile = () => {
 			</nav>
 			<main className="min-h-full lg:w-11/12 lg:m-auto xl:w-4/5 relative">
 				<LeftSidebar />
-				<ProfileContainer />
+				{status === 'successfull' && <ProfileContainer profileUser={profileUser} />}
 			</main>
 			<footer>
 				<FooterNav />

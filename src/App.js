@@ -8,7 +8,7 @@ function App() {
 		<div className="App">
 			<Routes>
 				<Route path="/" element={<Login />} />
-				<Route path="/profile" element={<Profile />} />
+				<Route path="/profile/:userId" element={<Profile />} />
 				<Route path="/signup" element={<Signup />} />
 				<Route path="/feed" element={<Feed />} />
 			</Routes>

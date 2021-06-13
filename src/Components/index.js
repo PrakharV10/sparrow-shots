@@ -13,3 +13,5 @@ export { default as ImagePostBox } from './ImagePostBox/ImagePostBox';
 export { default as RightSuggestionBar } from './RightSuggestionBar/RightSuggestionBar';
 export { default as ProfileContainer } from './ProfileContainer/ProfileContainer';
 export { default as ProfileHeader } from './ProfileHeader/ProfileHeader';
+export { default as ProfileShotsDisplay } from './ProflieShotsDisplay/ProfileShotsDisplay';
+export { default as ProfilePiecesDisplay } from './ProfilePiecesDisplay/ProfilePiecesDisplay';
