@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Feed, Login, Profile, Signup } from './Pages';
+import { Feed } from './features';
+import { Login, Profile, Signup } from './Pages';
 
 function App() {
 	return (

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import {
 	MobileHeader,
 	DesktopHeader,
@@ -7,8 +8,17 @@ import {
 	FeedContainer,
 	RightSuggestionBar,
 } from '../../Components';
+import { loadPosts, usePostSelector } from './postsSlice';
 
 const Feed = () => {
+	const { status, posts } = usePostSelector();
+	const dispatch = useDispatch();
+	console.log(posts);
+
+	useEffect(() => {
+		if (status === 'idle') dispatch(loadPosts());
+	}, [status, dispatch]);
+
 	return (
 		<div>
 			<nav className="sticky top-0 bg-blue-50 z-10 ">
@@ -17,7 +27,7 @@ const Feed = () => {
 			</nav>
 			<main className="lg:w-11/12 lg:m-auto xl:w-4/5 relative">
 				<LeftSidebar />
-				<FeedContainer />
+				<FeedContainer posts={posts} />
 				<RightSuggestionBar />
 			</main>
 			<footer>

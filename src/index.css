@@ -15,4 +15,20 @@
 	.logo {
 		@apply font-logo text-lg md:text-xl font-bold;
 	}
+
+	.scroll-container {
+		max-height: calc(100vh - 10rem);
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	.scroll-container::-webkit-scrollbar {
+		display: none;
+	}
+
+	@media screen and (max-width: 1024px) {
+		.scroll-container {
+			max-height: calc(100vh - 8rem);
+		}
+	}
 }

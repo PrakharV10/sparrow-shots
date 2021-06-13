@@ -3,7 +3,7 @@ import { ProfileHeader } from '..';
 
 const ProfileContainer = () => {
 	return (
-		<div className="px-5 lg:px-0 lg:ml-72 overflow-auto">
+		<div className="px-5 mb-20 scroll-container lg:px-0 lg:ml-72 overflow-auto">
 			<ProfileHeader />
 			<div className="grid grid-cols-3 grid-flow-row gap-1 md:gap-2 lg:gap-4 lg:ml-20">
 				<div>
