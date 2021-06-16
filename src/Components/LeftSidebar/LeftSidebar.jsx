@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AvatarRegular, AddPostModal, LogoutModal } from '..';
-import { AddIcon, ChatIcon, ExploreIcon, HomeIcon, LogOutIcon, SavedIcon } from '../../Assets/svg';
+import { AddIcon, ExploreIcon, HomeIcon, LogOutIcon, SavedIcon } from '../../Assets/svg';
 
 const LeftSidebar = () => {
 	const activeStyle = {
@@ -22,7 +22,7 @@ const LeftSidebar = () => {
 					onClick={() => navigate(`/profile/${userId}`)}
 					className="flex mb-9 cursor-pointer"
 				>
-					<AvatarRegular />
+					<AvatarRegular name={name} />
 					<div className="ml-3">
 						<div className="font-medium">{name}</div>
 						<div className="text-gray-400 text-xs font-light">Web Developer</div>

@@ -9,7 +9,7 @@ const FooterNav = () => {
 		color: '#E74C88',
 	};
 
-	const { userId } = useSelector((state) => state.auth);
+	const { userId, name } = useSelector((state) => state.auth);
 
 	return (
 		<div className="bg-blue-50 fixed bottom-0 w-screen h-16 px-5 border-t-2 border-black border-opacity-10 lg:hidden">
@@ -31,7 +31,7 @@ const FooterNav = () => {
 				</li>
 				<li>
 					<NavLink to={`/profile/${userId}`} activeStyle={activeStyle}>
-						<AvatarSmall />
+						<AvatarSmall name={name} />
 					</NavLink>
 				</li>
 			</ul>

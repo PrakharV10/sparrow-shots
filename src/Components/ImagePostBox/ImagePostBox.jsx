@@ -1,11 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { AvatarMedium, CommentBox, SaveBox, LikeBox } from '..';
 
 const ImagePostBox = () => {
+	const { name } = useSelector((state) => state.auth);
+
 	return (
 		<div className="mb-6">
 			<div className="flex w-100 mb-4">
-				<AvatarMedium />
+				<AvatarMedium name={name} />
 				<div className="ml-2.5 flex-1">
 					<div className="font-regular text-sm text-gray-400 cursor-pointer">
 						Sakshi Jain

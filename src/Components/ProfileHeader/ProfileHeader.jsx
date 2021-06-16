@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 import { AvatarLarge } from '../Avatar/Avatar';
 
 const ProfileHeader = ({ profileUser }) => {
-	const { userId } = useSelector((state) => state.auth);
+	const { userId, name } = useSelector((state) => state.auth);
 
 	return (
 		<div className="flex border-b-2 border-gray-400 border-opacity-40 w-full lg:border-b-0 mb-5">
-			<AvatarLarge />
+			<AvatarLarge name={name} />
 			<div className="ml-4 border-b-0 border-gray-400 pb-3 border-opacity-40 lg:border-b-2">
 				<div className="font-regular text-lg lg:text-xl">{profileUser.name}</div>
 				<div className="flex justify-between items-center mb-6 w-full">
