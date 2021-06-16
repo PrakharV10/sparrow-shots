@@ -1,27 +1,43 @@
 export const getAllPostsAndAssociatedData = () => {
 	return `query GetAllPostsAndAssociatedData {
-        text_posts(order_by: {created_at: desc}) {
-          id
-          content
-          user {
-            id
-            name
-            title
-          }
-          likes {
-            user_id
-            type
-          }
-          comments {
-            id
-            comment
-          }
-          saves {
-            id
-            user_id
-          }
+    text_posts(order_by: {created_at: desc}) {
+      id
+      content
+      user {
+        id
+        name
+        title
+      }
+      likes {
+        user_id
+        type
+      }
+      comments {
+        id
+        comment
+        user {
+          name
         }
-      }`;
+      }
+      saves {
+        id
+        user_id
+      }
+    }
+  }`;
+};
+
+export const addCommentToServer = (user_id, post_id, comment) => {
+	return `mutation MyMutation {
+    insert_comments_one(object: {user_id: "${user_id}", post_id: "${post_id}", comment: "${comment}"}) {
+      id
+      comment
+      user {
+        name
+      }
+      post_id
+    }
+  }`;
 };
 
 export const addLikesOrDislikesToServer = (post_id, user_id, type) => {
@@ -61,11 +77,28 @@ export const deleteReactionFromServer = (post_id, user_id) => {
 
 export const postPieceToServer = (user_id, content) => {
 	return `mutation MyMutation {
-    insert_text_posts_one(object: {user_id: ${user_id}, content: ${content}}) {
+    insert_text_posts_one(object: {user_id: "${user_id}", content: "${content}"}) {
       id
       content
-      user_id
+      user{
+        id
+        name
+        title
+      }
+      likes {
+        user_id
+        type
+      }
+      comments {
+        id
+        comment
+      }
+      saves {
+        id
+        user_id
+      }
     }
   }
+  
   `;
 };

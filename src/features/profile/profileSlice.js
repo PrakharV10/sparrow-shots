@@ -1,55 +1,46 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { getProfileFromServer } from './usersQueries';
+import { getProfileFromServer } from '../../graphql/profileQueries';
 
 const API_URL = process.env.REACT_APP_API_URL;
-const ADMIN_SECRET = process.env.REACT_APP_ADMIN_SECRET;
 
 const initialState = {
-	profileUser: {},
-	status: 'idle',
+	profileUser: [],
+	profileStatus: 'idle',
 };
 
 export const getProfileFromUserId = createAsyncThunk(
-	'users/getProfileFromUserId',
+	'profile/getProfileFromUserId',
 	async ({ user_id }) => {
 		const response = await axios({
 			url: API_URL,
 			method: 'post',
-			headers: {
-				'x-hasura-admin-secret': ADMIN_SECRET,
-			},
 			data: {
 				query: getProfileFromServer(user_id),
 			},
 		});
-
-		return response.data;
+		if (response.data.data.users) return response.data;
+		else throw new Error(response.errors);
 	}
 );
 
-const usersSlice = createSlice({
-	name: 'users',
+const profileSlice = createSlice({
+	name: 'profile',
 	initialState,
 	reducers: {},
 	extraReducers: {
 		[getProfileFromUserId.fulfilled]: (state, { payload }) => {
 			state.profileUser = payload.data.users[0];
-			state.status = 'successfull';
+			state.profileStatus = 'successfull';
 		},
 		[getProfileFromUserId.pending]: (state) => {
-			state.status = 'pending';
+			state.profileStatus = 'pending';
 		},
 		[getProfileFromUserId.rejected]: (state, action) => {
-			state.status = 'failed';
+			state.profileStatus = 'failed';
 			console.log(action.error.message);
 		},
 	},
 });
 
-export default usersSlice.reducer;
-
-export function useUserSelector() {
-	return useSelector((state) => state.users);
-}
+export default profileSlice.reducer;

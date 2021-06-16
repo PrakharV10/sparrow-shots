@@ -3,6 +3,7 @@ export default function signupQueries(name, email, password) {
         Signup(email: $email, name: $name, password: $password) {
           id
           name
+          token
           email
         }
       }

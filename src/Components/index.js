@@ -17,3 +17,4 @@ export { default as ProfileShotsDisplay } from './ProflieShotsDisplay/ProfileSho
 export { default as ProfilePiecesDisplay } from './ProfilePiecesDisplay/ProfilePiecesDisplay';
 export { default as EmptyFeed } from './EmptyFeed/EmptyFeed';
 export { default as AddPostModal } from './AddPostModal/AddPostModal';
+export { default as PostBottomDisclosure } from './PostBottomDisclosure/PostBottomDisclosure';

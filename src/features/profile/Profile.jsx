@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import {
 	DesktopHeader,
@@ -8,16 +8,18 @@ import {
 	MobileHeader,
 	ProfileContainer,
 } from '../../Components';
-import { getProfileFromUserId, useUserSelector } from '../../features/users/usersSlice';
+import { usePostSelector } from '../posts/postsSlice';
+import { getProfileFromUserId } from './profileSlice';
 
 const Profile = () => {
 	const dispatch = useDispatch();
 	const { userId } = useParams();
-	const { profileUser, status } = useUserSelector();
+	const { profileUser, profileStatus } = useSelector((state) => state.profile);
+	const { status } = usePostSelector();
 
 	useEffect(() => {
-		dispatch(getProfileFromUserId({ user_id: userId }));
-	}, [dispatch, userId]);
+		if (status === 'posts/fulfilled') dispatch(getProfileFromUserId({ user_id: userId }));
+	}, [dispatch, userId, status]);
 
 	return (
 		<div>
@@ -27,7 +29,7 @@ const Profile = () => {
 			</nav>
 			<main className="min-h-full lg:w-11/12 lg:m-auto xl:w-4/5 relative">
 				<LeftSidebar />
-				{status === 'successfull' && <ProfileContainer profileUser={profileUser} />}
+				{profileStatus === 'successfull' && <ProfileContainer profileUser={profileUser} />}
 			</main>
 			<footer>
 				<FooterNav />

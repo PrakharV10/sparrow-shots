@@ -68,7 +68,7 @@ const LeftSidebar = () => {
 					<span className="ml-6">Create a post</span>
 				</li>
 			</ul>
-			{isOpen && <AddPostModal isOpen={isOpen} setIsOpen={setIsOpen} />}
+			<AddPostModal isOpen={isOpen} setIsOpen={setIsOpen} />
 		</div>
 	);
 };

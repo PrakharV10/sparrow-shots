@@ -2,12 +2,13 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import {
+	addCommentToServer,
 	addLikesOrDislikesToServer,
 	deleteReactionFromServer,
 	getAllPostsAndAssociatedData,
 	postPieceToServer,
 	updateLikesOrDislikesToServer,
-} from './postsQueries';
+} from '../../graphql/postsQueries';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -19,7 +20,11 @@ export const loadPosts = createAsyncThunk('posts/loadPosts', async () => {
 			query: getAllPostsAndAssociatedData(),
 		},
 	});
-	return response.data;
+	if (response.data.data.text_posts) {
+		return response.data;
+	} else {
+		throw new Error(response.errors);
+	}
 });
 
 export const createNewPiece = createAsyncThunk(
@@ -32,7 +37,30 @@ export const createNewPiece = createAsyncThunk(
 				query: postPieceToServer(user_id, content),
 			},
 		});
-		return response.data;
+		if (response.data.data.insert_text_posts_one) {
+			return response.data;
+		} else {
+			throw new Error(response.errors);
+		}
+	}
+);
+
+export const addComment = createAsyncThunk(
+	'posts/addComment',
+	async ({ user_id, post_id, comment }) => {
+		const response = await axios({
+			url: API_URL,
+			method: 'post',
+			data: {
+				query: addCommentToServer(user_id, post_id, comment),
+			},
+		});
+		console.log(response.data.data.insert_comments_one);
+		if (response.data.data.insert_comments_one) {
+			return response.data;
+		} else {
+			throw new Error(response.errors);
+		}
 	}
 );
 
@@ -95,18 +123,38 @@ const postsSlice = createSlice({
 	},
 	extraReducers: {
 		[loadPosts.pending]: (state) => {
-			state.status = 'loading';
+			state.status = 'posts/loading';
 		},
 		[loadPosts.fulfilled]: (state, action) => {
-			state.status = 'successfull';
+			console.log(action.payload);
+			state.status = 'posts/fulfilled';
 			state.posts = action.payload.data.text_posts;
 		},
 		[loadPosts.rejected]: (state, action) => {
 			console.log(action.error.message);
-			state.status = 'failed';
+			state.status = 'posts/rejected';
+		},
+		[createNewPiece.fulfilled]: (state, action) => {
+			state.status = 'posts/fulfilled';
+			console.log(action.payload.data.insert_text_posts_one);
+			state.posts = [action.payload.data.insert_text_posts_one, ...state.posts];
+		},
+		[createNewPiece.pending]: (state) => {
+			state.status = 'posts/posting';
+		},
+		[createNewPiece.rejected]: (state, action) => {
+			state.status = 'posts/rejected';
+			console.log(action.error.message);
+		},
+		[addComment.fulfilled]: (state, { payload }) => {
+			const { id, comment, user, post_id } = payload.data.insert_comments_one;
+			console.log(id, comment, user, post_id);
+			state.status = 'posts/fulfilled';
+			state.posts.forEach((post) => {
+				if (post.id === post_id) post.comments = [{ id, comment, user }, ...post.comments];
+			});
 		},
 		[addReaction.fulfilled]: (state, { payload: { data } }) => {
-			console.log(data);
 			state.posts.forEach((post) => {
 				if (post.id === data.insert_likes_one.post_id)
 					post.likes = [

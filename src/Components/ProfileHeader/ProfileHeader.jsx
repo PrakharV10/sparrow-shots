@@ -1,10 +1,9 @@
 import React from 'react';
-import { useUserSelector } from '../../features/users/usersSlice';
+import { useSelector } from 'react-redux';
 import { AvatarLarge } from '../Avatar/Avatar';
 
 const ProfileHeader = ({ profileUser }) => {
-	const { currentUser } = useUserSelector();
-	console.log(currentUser.id === profileUser.id);
+	const { userId } = useSelector((state) => state.auth);
 
 	return (
 		<div className="flex border-b-2 border-gray-400 border-opacity-40 w-full lg:border-b-0 mb-5">
@@ -17,7 +16,7 @@ const ProfileHeader = ({ profileUser }) => {
 							? profileUser.description
 							: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'}
 					</p>
-					{currentUser.id !== profileUser.id && (
+					{userId !== profileUser.id && (
 						<button className="hidden flex-shrink-0 ml-8 w-24 h-10 rounded-full text-pink-500 border-2 border-pink-500 text-sm lg:block">
 							Follow
 						</button>
@@ -34,7 +33,7 @@ const ProfileHeader = ({ profileUser }) => {
 							Following
 						</div>
 					</div>
-					{currentUser.id !== profileUser.id && (
+					{userId !== profileUser.id && (
 						<button className="text-pink-500 text-sm lg:hidden">Follow</button>
 					)}
 				</div>

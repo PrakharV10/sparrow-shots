@@ -1,6 +1,8 @@
-import React, { useState, useDispatch } from 'react';
+import React, { useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
+import { createNewPiece, usePostSelector } from '../../features/posts/postsSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const AddPostModal = ({ isOpen, setIsOpen }) => {
 	function closeModal() {
@@ -9,10 +11,13 @@ const AddPostModal = ({ isOpen, setIsOpen }) => {
 	}
 
 	const dispatch = useDispatch();
+	const { userId } = useSelector((state) => state.auth);
+	const { status } = usePostSelector();
 	const [postInput, setPostInput] = useState('');
 
-	function publishPiece() {
-		dispatch();
+	async function publishPiece() {
+		await dispatch(createNewPiece({ user_id: userId, content: postInput }));
+		closeModal();
 	}
 
 	return (
@@ -69,9 +74,10 @@ const AddPostModal = ({ isOpen, setIsOpen }) => {
 									<button
 										onClick={publishPiece}
 										type="button"
-										className="inline-flex justify-center px-4 py-2 text-sm font-medium text-pink-500 bg-pink-100 border border-transparent rounded-md hover:bg-pink-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+										disabled={postInput.trim().length === 0 ? true : false}
+										className="inline-flex justify-center px-4 py-2 text-sm font-medium text-pink-500 bg-pink-100 border border-transparent rounded-md hover:bg-pink-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
 									>
-										Publish
+										{status === 'posts/posting' ? `Publishing` : `Publish`}
 									</button>
 								</div>
 							</div>

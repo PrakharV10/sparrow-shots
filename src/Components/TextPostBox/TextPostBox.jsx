@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { AvatarMedium, CommentBox, SaveBox, LikeBox } from '..';
+import { AvatarMedium, PostBottomDisclosure } from '..';
 import { setCurrentPostClicked } from '../../features/posts/postsSlice';
 
 const TextPostBox = ({ post }) => {
@@ -33,15 +33,7 @@ const TextPostBox = ({ post }) => {
 					</p>
 				</div>
 			</div>
-			<div className="flex justify-between items-center">
-				<div className="flex">
-					<CommentBox />
-					<SaveBox />
-				</div>
-				<div>
-					<LikeBox post={post} />
-				</div>
-			</div>
+			<PostBottomDisclosure post={post} />
 		</div>
 	);
 };

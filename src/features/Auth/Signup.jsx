@@ -50,7 +50,7 @@ const Signup = () => {
 							someone’s feed today.
 							<br />
 							<br /> Already a part of Shots Inner Circle !? Let's get you{' '}
-							<Link to="/" className="font-semibold">
+							<Link to="/login" className="font-semibold">
 								logged in
 							</Link>
 							!!
