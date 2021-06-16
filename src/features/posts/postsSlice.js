@@ -5,19 +5,16 @@ import {
 	addLikesOrDislikesToServer,
 	deleteReactionFromServer,
 	getAllPostsAndAssociatedData,
+	postPieceToServer,
 	updateLikesOrDislikesToServer,
 } from './postsQueries';
 
 const API_URL = process.env.REACT_APP_API_URL;
-const ADMIN_SECRET = process.env.REACT_APP_ADMIN_SECRET;
 
 export const loadPosts = createAsyncThunk('posts/loadPosts', async () => {
 	const response = await axios({
 		url: API_URL,
 		method: 'post',
-		headers: {
-			'x-hasura-admin-secret': ADMIN_SECRET,
-		},
 		data: {
 			query: getAllPostsAndAssociatedData(),
 		},
@@ -25,15 +22,26 @@ export const loadPosts = createAsyncThunk('posts/loadPosts', async () => {
 	return response.data;
 });
 
+export const createNewPiece = createAsyncThunk(
+	'posts/createNewPiece',
+	async ({ user_id, content }) => {
+		const response = await axios({
+			url: API_URL,
+			method: 'post',
+			data: {
+				query: postPieceToServer(user_id, content),
+			},
+		});
+		return response.data;
+	}
+);
+
 export const addReaction = createAsyncThunk(
 	'posts/addReaction',
 	async ({ post_id, user_id, type }) => {
 		const response = await axios({
 			url: API_URL,
 			method: 'post',
-			headers: {
-				'x-hasura-admin-secret': ADMIN_SECRET,
-			},
 			data: {
 				query: addLikesOrDislikesToServer(post_id, user_id, type),
 			},
@@ -49,9 +57,6 @@ export const updateReaction = createAsyncThunk(
 		const response = await axios({
 			url: API_URL,
 			method: 'post',
-			headers: {
-				'x-hasura-admin-secret': ADMIN_SECRET,
-			},
 			data: {
 				query: updateLikesOrDislikesToServer(post_id, user_id, type),
 			},
@@ -66,9 +71,6 @@ export const deleteReaction = createAsyncThunk(
 		const response = await axios({
 			url: API_URL,
 			method: 'post',
-			headers: {
-				'x-hasura-admin-secret': ADMIN_SECRET,
-			},
 			data: {
 				query: deleteReactionFromServer(post_id, user_id),
 			},

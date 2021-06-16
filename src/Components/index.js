@@ -15,3 +15,5 @@ export { default as ProfileContainer } from './ProfileContainer/ProfileContainer
 export { default as ProfileHeader } from './ProfileHeader/ProfileHeader';
 export { default as ProfileShotsDisplay } from './ProflieShotsDisplay/ProfileShotsDisplay';
 export { default as ProfilePiecesDisplay } from './ProfilePiecesDisplay/ProfilePiecesDisplay';
+export { default as EmptyFeed } from './EmptyFeed/EmptyFeed';
+export { default as AddPostModal } from './AddPostModal/AddPostModal';

@@ -58,3 +58,14 @@ export const deleteReactionFromServer = (post_id, user_id) => {
     }
   }`;
 };
+
+export const postPieceToServer = (user_id, content) => {
+	return `mutation MyMutation {
+    insert_text_posts_one(object: {user_id: ${user_id}, content: ${content}}) {
+      id
+      content
+      user_id
+    }
+  }
+  `;
+};

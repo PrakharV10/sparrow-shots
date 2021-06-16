@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { AvatarRegular } from '..';
-import { ChatIcon, ExploreIcon, HomeIcon, SavedIcon } from '../../Assets/svg';
+import { AvatarRegular, AddPostModal } from '..';
+import { AddIcon, ChatIcon, ExploreIcon, HomeIcon, SavedIcon } from '../../Assets/svg';
 
 const LeftSidebar = () => {
 	const activeStyle = {
 		color: '#36373B',
 	};
+
+	const [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<div className="hidden absolute top-0 left-0 h-full w-72 lg:block">
@@ -58,7 +60,15 @@ const LeftSidebar = () => {
 						<span className="ml-6">Chats</span>
 					</NavLink>
 				</li>
+				<li
+					onClick={() => setIsOpen(true)}
+					className="flex items-center h-12 cursor-pointer"
+				>
+					<AddIcon />
+					<span className="ml-6">Create a post</span>
+				</li>
 			</ul>
+			{isOpen && <AddPostModal isOpen={isOpen} setIsOpen={setIsOpen} />}
 		</div>
 	);
 };

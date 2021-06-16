@@ -7,11 +7,6 @@ const API_URL = process.env.REACT_APP_API_URL;
 const ADMIN_SECRET = process.env.REACT_APP_ADMIN_SECRET;
 
 const initialState = {
-	currentUser: {
-		id: '9d94363f-d62b-404b-b343-b923355ea94b',
-		name: 'John Doe',
-		title: null,
-	},
 	profileUser: {},
 	status: 'idle',
 };
