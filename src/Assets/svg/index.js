@@ -8,3 +8,4 @@ export { CommentFilled, CommentOutline } from './CommentIcon';
 export { default as SavePostIcon } from './SavePostIcon';
 export { default as UpvoteIcon } from './UpvoteIcon';
 export { default as DownvoteIcon } from './DownvoteIcon';
+export { default as LogOutIcon } from './LogOutIcon';

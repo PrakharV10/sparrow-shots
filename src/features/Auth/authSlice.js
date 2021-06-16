@@ -4,32 +4,49 @@ import { authenticateServerCall, checkLocalStorage, signupServerCall } from './u
 
 export const loginUser = createAsyncThunk('auth/loginUser', async ({ email, password }) => {
 	const response = await authenticateServerCall(email, password);
-	return response.data;
+	if (response.data.data.Login) {
+		return response.data;
+	} else {
+		throw new Error(response.data.errors);
+	}
 });
 
 export const signupUser = createAsyncThunk('auth/signupUser', async ({ name, email, password }) => {
 	const response = await signupServerCall(name, email, password);
-	console.log(response);
-	if (response.errors) {
-		throw new Error('Invalid Request');
-	} else {
+	if (response.data.data.Signup) {
 		return response.data;
+	} else {
+		throw new Error(response.data.errors);
 	}
 });
 
+const initialState = {
+	userToken: checkLocalStorage('UserToken'),
+	status: checkLocalStorage('UserToken') ? 'tokenReceived' : 'idle',
+	userId: checkLocalStorage('UserId'),
+	name: checkLocalStorage('user') ? checkLocalStorage('user').name : null,
+	title: checkLocalStorage('user') ? checkLocalStorage('user').title : null,
+	isUserLoggedIn: checkLocalStorage('isUserLoggedIn'),
+};
+
 const authSlice = createSlice({
 	name: 'auth',
-	initialState: {
-		userToken: checkLocalStorage('UserToken'),
-		status: checkLocalStorage('UserToken') ? 'tokenReceived' : 'idle',
-		userId: checkLocalStorage('UserId'),
-		name: checkLocalStorage('user') ? checkLocalStorage('user').name : null,
-		title: checkLocalStorage('user') ? checkLocalStorage('user').title : null,
-		isUserLoggedIn: checkLocalStorage('isUserLoggedIn'),
-	},
+	initialState,
 	reducers: {
 		resetAuthStatus: (state) => {
 			state.status = 'idle';
+		},
+		logOutUser: (state) => {
+			localStorage.removeItem('UserToken');
+			localStorage.removeItem('UserId');
+			localStorage.removeItem('isUserLoggedIn');
+			localStorage.removeItem('user');
+			state.isUserLoggedIn = false;
+			state.status = 'idle';
+			state.userId = null;
+			state.userToken = null;
+			state.name = null;
+			state.title = null;
 		},
 	},
 	extraReducers: {
@@ -52,7 +69,8 @@ const authSlice = createSlice({
 		[loginUser.pending]: (state) => {
 			state.status = 'loading';
 		},
-		[loginUser.rejected]: (state) => {
+		[loginUser.rejected]: (state, action) => {
+			console.log(action.payload);
 			state.status = 'rejected';
 		},
 		[signupUser.fulfilled]: (state, action) => {
@@ -72,7 +90,7 @@ const authSlice = createSlice({
 			state.status = 'tokenReceived';
 		},
 		[signupUser.pending]: (state) => {
-			state.status = 'pending';
+			state.status = 'loading';
 		},
 		[signupUser.rejected]: (state) => {
 			state.status = 'rejected';
@@ -81,4 +99,4 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
-export const { resetAuthStatus, logInByLocalStorage } = authSlice.actions;
+export const { resetAuthStatus, logInByLocalStorage, logOutUser } = authSlice.actions;

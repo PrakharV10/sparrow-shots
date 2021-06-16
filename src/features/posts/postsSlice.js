@@ -57,7 +57,6 @@ export const addComment = createAsyncThunk(
 				query: addCommentToServer(user_id, post_id, comment),
 			},
 		});
-		console.log(response.data.data.insert_comments_one);
 		if (response.data.data.insert_comments_one) {
 			return response.data;
 		} else {
@@ -185,7 +184,7 @@ const postsSlice = createSlice({
 			const { id, comment, user, post_id } = payload.data.insert_comments_one;
 			state.status = 'posts/fulfilled';
 			state.posts.forEach((post) => {
-				if (post.id === post_id) post.comments = [{ id, comment, user }, ...post.comments];
+				if (post.id === post_id) post.comments = [...post.comments, { id, comment, user }];
 			});
 		},
 		[addComment.rejected]: (state, action) => {

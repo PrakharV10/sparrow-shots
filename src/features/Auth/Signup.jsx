@@ -27,7 +27,7 @@ const Signup = () => {
 
 	useEffect(() => {
 		dispatch(resetAuthStatus());
-		isUserLoggedIn && navigate('/');
+		isUserLoggedIn && navigate('/feed');
 	}, [isUserLoggedIn]);
 
 	return (

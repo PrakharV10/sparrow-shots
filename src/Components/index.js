@@ -18,3 +18,4 @@ export { default as ProfilePiecesDisplay } from './ProfilePiecesDisplay/ProfileP
 export { default as EmptyFeed } from './EmptyFeed/EmptyFeed';
 export { default as AddPostModal } from './AddPostModal/AddPostModal';
 export { default as PostBottomDisclosure } from './PostBottomDisclosure/PostBottomDisclosure';
+export { default as LogoutModal } from './LogoutModal/LogoutModal';

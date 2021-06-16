@@ -20,7 +20,7 @@ const Login = () => {
 
 	useEffect(() => {
 		dispatch(resetAuthStatus());
-		isUserLoggedIn && navigate('/');
+		isUserLoggedIn && navigate('/feed');
 	}, [isUserLoggedIn]);
 
 	return (
@@ -73,7 +73,7 @@ const Login = () => {
 								type="submit"
 								className="bg-pink-500 text-white-100 w-full h-14 rounded-sm shadow mb-4"
 							>
-								{status === 'idle' ? `LOGIN` : `LOGGIN IN..`}
+								{status === 'loading' ? `LOGGIN IN...` : `LOG IN`}
 							</button>
 						</form>
 					</div>
