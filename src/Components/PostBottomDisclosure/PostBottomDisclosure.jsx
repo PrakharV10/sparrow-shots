@@ -32,7 +32,7 @@ const CommentDisclosure = ({ post }) => {
 										<CommentBox commentNumber={post.comments.length} />
 									</span>
 								</Disclosure.Button>
-								<SaveBox />
+								<SaveBox post={post} />
 							</div>
 							<div>
 								<LikeBox post={post} />

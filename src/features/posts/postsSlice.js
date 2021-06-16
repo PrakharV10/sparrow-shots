@@ -4,9 +4,11 @@ import { useSelector } from 'react-redux';
 import {
 	addCommentToServer,
 	addLikesOrDislikesToServer,
+	addSavedToServer,
 	deleteReactionFromServer,
 	getAllPostsAndAssociatedData,
 	postPieceToServer,
+	removeSavedFromServer,
 	updateLikesOrDislikesToServer,
 } from '../../graphql/postsQueries';
 
@@ -58,6 +60,39 @@ export const addComment = createAsyncThunk(
 		console.log(response.data.data.insert_comments_one);
 		if (response.data.data.insert_comments_one) {
 			return response.data;
+		} else {
+			throw new Error(response.errors);
+		}
+	}
+);
+
+export const addToSaved = createAsyncThunk('posts/addToSaved', async ({ user_id, post_id }) => {
+	const response = await axios({
+		url: API_URL,
+		method: 'post',
+		data: {
+			query: addSavedToServer(user_id, post_id),
+		},
+	});
+	if (response.data.data.insert_saves_one) {
+		return response.data;
+	} else {
+		throw new Error(response.errors);
+	}
+});
+
+export const deleteFromSaved = createAsyncThunk(
+	'posts/deleteFromSaved',
+	async ({ user_id, post_id }) => {
+		const response = await axios({
+			url: API_URL,
+			method: 'post',
+			data: {
+				query: removeSavedFromServer(user_id, post_id),
+			},
+		});
+		if (response.data.data.delete_saves) {
+			return { user_id, post_id };
 		} else {
 			throw new Error(response.errors);
 		}
@@ -148,11 +183,37 @@ const postsSlice = createSlice({
 		},
 		[addComment.fulfilled]: (state, { payload }) => {
 			const { id, comment, user, post_id } = payload.data.insert_comments_one;
-			console.log(id, comment, user, post_id);
 			state.status = 'posts/fulfilled';
 			state.posts.forEach((post) => {
 				if (post.id === post_id) post.comments = [{ id, comment, user }, ...post.comments];
 			});
+		},
+		[addComment.rejected]: (state, action) => {
+			state.status = 'posts/rejected';
+			console.log(action.error.message);
+		},
+		[addToSaved.fulfilled]: (state, { payload }) => {
+			const { id, user_id, post_id } = payload.data.insert_saves_one;
+			state.status = 'posts/fulfilled';
+			state.posts.forEach((post) => {
+				if (post.id === post_id) post.saves = [...post.saves, { id, user_id }];
+			});
+		},
+		[addToSaved.rejected]: (state, action) => {
+			state.status = 'posts/rejected';
+			console.log(action.error.message);
+		},
+		[deleteFromSaved.fulfilled]: (state, { payload: { user_id, post_id } }) => {
+			state.status = 'posts/fulfilled';
+			state.posts = state.posts.map((post) => {
+				if (post.id === post_id)
+					return { ...post, saves: post.saves.filter((one) => one.user_id !== user_id) };
+				else return post;
+			});
+		},
+		[deleteFromSaved.rejected]: (state, action) => {
+			state.status = 'posts/rejected';
+			console.log(action.error.message);
 		},
 		[addReaction.fulfilled]: (state, { payload: { data } }) => {
 			state.posts.forEach((post) => {

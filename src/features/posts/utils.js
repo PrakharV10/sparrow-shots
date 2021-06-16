@@ -7,3 +7,8 @@ export function checkUserLikedOrDisliked(post, user_id) {
 	});
 	return result;
 }
+
+export function checkUserSaved(post, user_id) {
+	if (post.saves.find((saveObject) => saveObject.user_id === user_id)) return true;
+	return false;
+}

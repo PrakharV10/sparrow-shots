@@ -40,6 +40,25 @@ export const addCommentToServer = (user_id, post_id, comment) => {
   }`;
 };
 
+export const addSavedToServer = (user_id, post_id) => {
+	return `mutation MyMutation {
+    insert_saves_one(object: {user_id: "${user_id}", post_id: "${post_id}"}) {
+      id
+      user_id
+      post_id
+    }
+  }
+  `;
+};
+
+export const removeSavedFromServer = (user_id, post_id) => {
+	return `mutation MyMutation {
+    delete_saves(where: {user_id: {_eq: "${user_id}"}, post_id: {_eq: "${post_id}"}}) {
+      affected_rows
+    }
+  }`;
+};
+
 export const addLikesOrDislikesToServer = (post_id, user_id, type) => {
 	return `mutation AddLikesOrDislikesToServer {
         insert_likes_one(object: {post_id: "${post_id}", user_id: "${user_id}", type: ${type}}) {

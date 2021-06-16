@@ -1,6 +1,5 @@
 import React from 'react';
 import { AvatarRegular } from '../Avatar/Avatar';
-import CommentBox from '../CommentBox/CommentBox';
 
 const ProfilePiecesDisplay = ({ textPosts }) => {
 	return (
@@ -14,9 +13,6 @@ const ProfilePiecesDisplay = ({ textPosts }) => {
 								{post.user.name}
 							</div>
 							<p className="font-light">{post.content}</p>
-							<div>
-								<CommentBox />
-							</div>
 						</div>
 					</div>
 				);
