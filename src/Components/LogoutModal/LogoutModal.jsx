@@ -14,7 +14,7 @@ const LogoutModal = ({ isModalOpen, setIsModalOpen }) => {
 
 	function logOutHandler() {
 		dispatch(logOutUser());
-		navigate('/login');
+		navigate('/');
 	}
 
 	return (

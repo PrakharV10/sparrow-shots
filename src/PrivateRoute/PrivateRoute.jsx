@@ -7,7 +7,7 @@ const PrivateRoute = ({ path, ...props }) => {
 	return isUserLoggedIn ? (
 		<Route path={path} {...props} />
 	) : (
-		<Navigate to="/login" state={{ from: path }} replace={true} />
+		<Navigate to="/"" state={{ from: path }} replace={true} />
 	);
 };
 
